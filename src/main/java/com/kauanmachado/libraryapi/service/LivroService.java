@@ -2,8 +2,10 @@ package com.kauanmachado.libraryapi.service;
 
 import com.kauanmachado.libraryapi.model.GeneroLivro;
 import com.kauanmachado.libraryapi.model.Livro;
+import com.kauanmachado.libraryapi.model.Usuario;
 import com.kauanmachado.libraryapi.repository.LivroRepository;
 import com.kauanmachado.libraryapi.repository.specs.LivroSpecs;
+import com.kauanmachado.libraryapi.security.SecurityService;
 import com.kauanmachado.libraryapi.validator.LivroValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +28,13 @@ public class LivroService {
     @Autowired
     private final LivroRepository repository;
     private final LivroValidator validator;
+    private final SecurityService securityService;
 
 
     public Livro salvar(Livro livro) {
         validator.validar(livro);
+        Usuario usuario = securityService.obterUsuarioLogado();
+        livro.setUsuario(usuario);
         return repository.save(livro);
     }
 

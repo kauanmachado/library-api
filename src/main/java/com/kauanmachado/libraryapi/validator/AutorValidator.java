@@ -14,11 +14,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AutorValidator {
 
-    private AutorRepository repository;
+    private final AutorRepository repository;
 
-    public AutorValidator(AutorRepository repository) {
-        this.repository = repository;
-    }
 
     public void validar(Autor autor){
         if(existeAutorCadastrado(autor)){
@@ -36,7 +33,7 @@ public class AutorValidator {
             return autorEncontrado.isPresent();
         }
 
-        return !autor.getId().equals(autorEncontrado.get().getId()) && autorEncontrado.isPresent();
+        return autorEncontrado.isPresent() && !autor.getId().equals(autorEncontrado.get().getId());
     }
 
 

@@ -2,8 +2,10 @@ package com.kauanmachado.libraryapi.service;
 
 import com.kauanmachado.libraryapi.exceptions.OperacaoNaoPermitidaException;
 import com.kauanmachado.libraryapi.model.Autor;
+import com.kauanmachado.libraryapi.model.Usuario;
 import com.kauanmachado.libraryapi.repository.AutorRepository;
 import com.kauanmachado.libraryapi.repository.LivroRepository;
+import com.kauanmachado.libraryapi.security.SecurityService;
 import com.kauanmachado.libraryapi.validator.AutorValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
@@ -20,12 +22,15 @@ public class AutorService {
 
     private final AutorRepository repository;
     private final AutorValidator validator;
+    private final SecurityService securityService;
     private final LivroRepository livroRepository;
 
 
 
     public Autor salvar(Autor autor){
         validator.validar(autor);
+        Usuario usuario = securityService.obterUsuarioLogado();
+        autor.setUsuario(usuario);
         return repository.save(autor);
     }
 

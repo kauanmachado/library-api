@@ -65,9 +65,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErroResposta handleErroNaoTratados(RuntimeException e){
+        e.printStackTrace();
+
+        // Retorna detalhes do erro na resposta
         return new ErroResposta(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                "Ocorreu um erro inesperado. Entre em contato com a administração.",
-                List.of());
+                "Erro interno do servidor: " + e.getMessage(),
+                List.of(new ErroCampo("Exceção", e.getClass().getSimpleName()))
+        );
     }
 }

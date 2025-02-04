@@ -48,8 +48,4 @@ public class SecurityConfiguration {
         return new CustomUserDetailsService(service);
     }
 
-//    @Bean
-//    GrantedAuthorityDefaults grantedAuthorityDefaults() {
-//        return new GrantedAuthorityDefaults(""); // Remove o prefixo padrão "ROLE_"
-//    }
 }
