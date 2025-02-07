@@ -1,17 +1,15 @@
 package com.kauanmachado.libraryapi.controller.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-import java.util.List;
-
-public record UsuarioDTO(
+public record ClientDTO(
         @NotBlank(message = "Campo obrigatório")
-        String login,
-        @Email (message = "E-mail inválido")
+        String clientId,
         @NotBlank(message = "Campo obrigatório")
-        String email,
+        String clientSecret,
         @NotBlank(message = "Campo obrigatório")
-        String senha,
-        List<String> roles) {
+        String redirectURI,
+        @NotBlank(message = "Campo obrigatório")
+        String scope
+) {
 }
